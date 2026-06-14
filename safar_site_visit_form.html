@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Safar Academy — Site Visit Assessment</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple-50: #EEEDFE;
+    --purple-100: #CECBF6;
+    --purple-600: #533AB7;
+    --purple-700: #3C3489;
+    --purple-800: #26215C;
+    --teal-50: #E1F5EE;
+    --teal-600: #0F6E56;
+    --teal-800: #04342C;
+    --amber-50: #FAEEDA;
+    --amber-600: #854F0B;
+    --red-50: #FCEBEB;
+    --red-600: #A32D2D;
+    --gray-50: #F7F6F3;
+    --gray-100: #EDECEA;
+    --gray-200: #D3D1C7;
+    --gray-400: #888780;
+    --gray-700: #444441;
+    --gray-900: #1A1A18;
+    --white: #ffffff;
+    --border: rgba(0,0,0,0.12);
+    --border-med: rgba(0,0,0,0.2);
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+  }
+
+  /* Header banner */
+  .page-header {
+    background: var(--purple-600);
+    color: white;
+    padding: 2rem 1.5rem 1.75rem;
+    text-align: center;
+  }
+  .page-header .org { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.75; margin-bottom: 6px; }
+  .page-header h1 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
+  .page-header p { font-size: 14px; opacity: 0.85; max-width: 520px; margin: 0 auto; }
+
+  .container { max-width: 680px; margin: 0 auto; padding: 2rem 1rem; }
+
+  /* Section cards */
+  .section-card {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .section-head {
+    background: var(--gray-50);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-num {
+    width: 24px; height: 24px;
+    background: var(--purple-600);
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-head h2 { font-size: 14px; font-weight: 600; color: var(--gray-700); }
+
+  /* Questions */
+  .q {
+    padding: 1rem 1.25rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .q:last-child { border-bottom: none; }
+  .q-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .q-sub {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .req { color: #c0392b; margin-left: 2px; }
+
+  /* Inputs */
+  input[type=text],
+  input[type=number],
+  input[type=date],
+  textarea,
+  select {
+    width: 100%;
+    border: 1px solid var(--border-med);
+    border-radius: var(--radius-md);
+    padding: 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--gray-900);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  input[type=text]:focus,
+  input[type=number]:focus,
+  input[type=date]:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--purple-600);
+    box-shadow: 0 0 0 3px rgba(83,58,183,0.12);
+  }
+  textarea { min-height: 76px; resize: vertical; }
+  input.short { max-width: 180px; }
+
+  /* Radio / checkbox */
+  .radio-group, .check-group { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .radio-opt, .check-opt {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 13px; color: var(--gray-900);
+    cursor: pointer; padding: 3px 0;
+    line-height: 1.4;
+  }
+  .radio-opt input, .check-opt input {
+    accent-color: var(--purple-600);
+    width: 15px; height: 15px;
+    margin-top: 1px;
+    flex-shrink: 0; cursor: pointer;
+  }
+
+  /* Inline chips */
+  .chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 6px; }
+  .chip {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 12px; color: var(--gray-900);
+    background: var(--gray-50);
+    border: 0.5px solid var(--border-med);
+    border-radius: 20px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: background 0.1s, border-color 0.1s;
+  }
+  .chip input { accent-color: var(--purple-600); width: 13px; height: 13px; cursor: pointer; }
+  .chip:has(input:checked) { background: var(--purple-50); border-color: var(--purple-600); color: var(--purple-800); }
+
+  /* Number row */
+  .num-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+  .num-row input { max-width: 90px; }
+  .num-row span { font-size: 13px; color: var(--gray-400); }
+
+  /* Rating */
+  .rating-wrap { margin-top: 6px; }
+  .star-row { display: flex; gap: 6px; }
+  .star-btn {
+    width: 38px; height: 38px;
+    border: 1px solid var(--border-med);
+    border-radius: var(--radius-md);
+    background: var(--white);
+    font-size: 13px; font-weight: 500;
+    color: var(--gray-400);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.1s;
+  }
+  .star-btn:hover { background: var(--purple-50); border-color: var(--purple-600); color: var(--purple-600); }
+  .star-btn.on { background: var(--purple-600); border-color: var(--purple-600); color: white; }
+  .rating-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--gray-400); margin-top: 4px; max-width: 232px; }
+
+  /* Progress bar */
+  .progress-wrap { margin-bottom: 1.5rem; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray-400); margin-bottom: 5px; }
+  .progress-track { height: 4px; background: var(--gray-100); border-radius: 2px; overflow: hidden; }
+  .progress-bar { height: 100%; background: var(--purple-600); border-radius: 2px; transition: width 0.3s; width: 0%; }
+
+  /* Print / submit */
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid var(--border); }
+  .btn-primary {
+    background: var(--purple-600); color: white;
+    border: none; border-radius: var(--radius-md);
+    padding: 10px 22px; font-size: 14px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: var(--purple-700); }
+  .btn-secondary {
+    background: var(--white); color: var(--gray-700);
+    border: 1px solid var(--border-med); border-radius: var(--radius-md);
+    padding: 10px 18px; font-size: 14px;
+    cursor: pointer; font-family: inherit;
+    transition: background 0.15s;
+  }
+  .btn-secondary:hover { background: var(--gray-50); }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+    background: var(--gray-900); color: white;
+    padding: 10px 20px; border-radius: var(--radius-md);
+    font-size: 13px; opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    z-index: 999;
+  }
+  .toast.show { opacity: 1; }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    .page-header { background: var(--purple-600) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .actions, .progress-wrap { display: none; }
+    .section-card { break-inside: avoid; page-break-inside: avoid; }
+  }
+
+  @media (max-width: 480px) {
+    .page-header h1 { font-size: 18px; }
+    .container { padding: 1rem 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="org">Safar Academy</div>
+  <h1>Site Visit Assessment Form</h1>
+  <p>Complete this during or immediately after visiting a prospective venue. Weekend maktab: 9:00 am – 12:30 pm · September – July</p>
+</div>
+
+<div class="container">
+
+  <div class="progress-wrap">
+    <div class="progress-label"><span>Progress</span><span id="prog-text">0 of 8 sections</span></div>
+    <div class="progress-track"><div class="progress-bar" id="prog-bar"></div></div>
+  </div>
+
+  <!-- 1. Site Details -->
+  <div class="section-card">
+    <div class="section-head"><div class="section-num">1</div><h2>Site details</h2></div>
+
+    <div class="q">
+      <div class="q-label">Name of venue <span class="req">*</span></div>
+      <input type="text" placeholder="e.g. Al-Noor Mosque, Greenfield Primary School" />
+    </div>
+    <div class="q">
+      <div class="q-label">Address <span class="req">*</span></div>
+      <textarea style="min-height:60px;" placeholder="Full address including postcode"></textarea>
+    </div>
+    <div class="q">
+      <div class="q-label">Date of visit <span class="req">*</span></div>
+      <input type="date" class="short" />
+    </div>
+    <div class="q">
+      <div class="q-label">Visiting staff members</div>
+      <input type="text" placeholder="Names of staff attending this visit" />
+    </div>
+    <div class="q">
+      <div class="q-label">Venue type <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="venue-type" /> Mosque / Islamic centre</label>
+        <label class="radio-opt"><input type="radio" name="venue-type" /> School or nursery</label>
+        <label class="radio-opt"><input type="radio" name="venue-type" /> Community hall</label>
+        <label class="radio-opt"><input type="radio" name="venue-type" /> Other</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Venue contact name &amp; number</div>
+      <input type="text" placeholder="e.g. Ahmed Khan — 07700 000000" />
+    </div>
+  </div>
+
+  <!-- 2. Parking & Access -->
+  <div class="section-card">
+    <div class="section-head"><div class="section-num">2</div><h2>Parking &amp; access</h2></div>
+
+    <div class="q">
+      <div class="q-label">Is there dedicated parking on site? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="parking" /> Yes — on-site car park</label>
+        <label class="radio-opt"><input type="radio" name="parking" /> Partial — limited spaces only</label>
+        <label class="radio-opt"><input type="radio" name="parking" /> No — street or nearby car park only</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Approximate number of parking spaces available</div>
+      <div class="num-row"><input type="number" min="0" placeholder="0" /><span>spaces</span></div>
+    </div>
+    <div class="q">
+      <div class="q-label">Drop-off &amp; collection arrangements <span class="req">*</span></div>
+      <div class="q-sub">How will parents drop off and collect children safely?</div>
+      <div class="chip-row">
+        <label class="chip"><input type="checkbox" /> Dedicated drop-off bay</label>
+        <label class="chip"><input type="checkbox" /> One-way traffic system</label>
+        <label class="chip"><input type="checkbox" /> Gate / barrier</label>
+        <label class="chip"><input type="checkbox" /> Street drop-off only</label>
+        <label class="chip"><input type="checkbox" /> Staff member at entry</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Is the entry/exit route safe for children? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="entry-safe" /> Yes — well separated from traffic</label>
+        <label class="radio-opt"><input type="radio" name="entry-safe" /> Partially — some concerns</label>
+        <label class="radio-opt"><input type="radio" name="entry-safe" /> No — significant traffic risk</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Wheelchair / pushchair accessibility</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="access" /> Fully accessible</label>
+        <label class="radio-opt"><input type="radio" name="access" /> Partially accessible</label>
+        <label class="radio-opt"><input type="radio" name="access" /> Not accessible</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Additional notes on parking &amp; access</div>
+      <textarea placeholder="Any further observations..."></textarea>
+    </div>
+  </div>
+
+  <!-- 3. Classrooms -->
+  <div class="section-card">
+    <div class="section-head"><div class="section-num">3</div><h2>Classrooms &amp; learning spaces</h2></div>
+
+    <div class="q">
+      <div class="q-label">Number of usable teaching rooms <span class="req">*</span></div>
+      <div class="num-row"><input type="number" min="0" placeholder="0" /><span>rooms</span></div>
+    </div>
+    <div class="q">
+      <div class="q-label">Estimated capacity per room</div>
+      <input type="text" placeholder="e.g. 15–20 pupils per room" />
+    </div>
+    <div class="q">
+      <div class="q-label">Classroom features present</div>
+      <div class="chip-row">
+        <label class="chip"><input type="checkbox" /> Tables &amp; chairs</label>
+        <label class="chip"><input type="checkbox" /> Whiteboards</label>
+        <label class="chip"><input type="checkbox" /> Projector / screen</label>
+        <label class="chip"><input type="checkbox" /> Storage cupboards</label>
+        <label class="chip"><input type="checkbox" /> Natural lighting</label>
+        <label class="chip"><input type="checkbox" /> Heating / AC</label>
+        <label class="chip"><input type="checkbox" /> WiFi access</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Large hall for whole-group assembly? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="hall" /> Yes</label>
+        <label class="radio-opt"><input type="radio" name="hall" /> No</label>
+        <label class="radio-opt"><input type="radio" name="hall" /> Could work with adaptations</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Separate male/female prayer facilities? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="prayer" /> Yes — dedicated spaces for both</label>
+        <label class="radio-opt"><input type="radio" name="prayer" /> Partial — one only or shared</label>
+        <label class="radio-opt"><input type="radio" name="prayer" /> No</label>
+        <label class="radio-opt"><input type="radio" name="prayer" /> Not applicable</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Wudhu (ablution) facilities on site?</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="wudhu" /> Yes</label>
+        <label class="radio-opt"><input type="radio" name="wudhu" /> No</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Overall classroom condition <span class="req">*</span></div>
+      <div class="rating-wrap">
+        <div class="star-row" id="r-classroom"></div>
+        <div class="rating-labels"><span>Poor</span><span>Excellent</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Notes on classrooms</div>
+      <textarea placeholder="Room layout, condition, suitability for mixed-age groups, any concerns..."></textarea>
+    </div>
+  </div>
+
+  <!-- 4. Kitchen & Staff -->
+  <div class="section-card">
+    <div class="section-head"><div class="section-num">4</div><h2>Kitchen &amp; staff facilities</h2></div>
+
+    <div class="q">
+      <div class="q-label">Is there a kitchen or kitchenette for staff? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="kitchen" /> Yes — full kitchen</label>
+        <label class="radio-opt"><input type="radio" name="kitchen" /> Yes — basic kitchenette only</label>
+        <label class="radio-opt"><input type="radio" name="kitchen" /> No</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Kitchen / break room equipment available</div>
+      <div class="chip-row">
+        <label class="chip"><input type="checkbox" /> Kettle</label>
+        <label class="chip"><input type="checkbox" /> Microwave</label>
+        <label class="chip"><input type="checkbox" /> Fridge</label>
+        <label class="chip"><input type="checkbox" /> Sink</label>
+        <label class="chip"><input type="checkbox" /> Seating for staff</label>
+        <label class="chip"><input type="checkbox" /> Lockable storage</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Is the kitchen halal-compliant or used exclusively by Muslim organisations?</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="halal" /> Yes</label>
+        <label class="radio-opt"><input type="radio" name="halal" /> No</label>
+        <label class="radio-opt"><input type="radio" name="halal" /> Unknown — need to confirm</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Adequate staff toilet facilities? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="staff-toilets" /> Yes — separate staff toilets</label>
+        <label class="radio-opt"><input type="radio" name="staff-toilets" /> Shared with pupils</label>
+        <label class="radio-opt"><input type="radio" name="staff-toilets" /> No</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Notes on staff facilities</div>
+      <textarea placeholder="Break room, lockers, coat storage, etc."></textarea>
+    </div>
+  </div>
+
+  <!-- 5. Outdoor Spaces -->
+  <div class="section-card">
+    <div class="section-head"><div class="section-num">5</div><h2>Outdoor spaces</h2></div>
+
+    <div class="q">
+      <div class="q-label">Is there an outdoor playground or open area? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="playground" /> Yes — dedicated playground</label>
+        <label class="radio-opt"><input type="radio" name="playground" /> Yes — open courtyard / yard</label>
+        <label class="radio-opt"><input type="radio" name="playground" /> Limited — small paved area only</label>
+        <label class="radio-opt"><input type="radio" name="playground" /> No outdoor space</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Is the outdoor space safely enclosed? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="enclosed" /> Yes — fully fenced / walled</label>
+        <label class="radio-opt"><input type="radio" name="enclosed" /> Partially enclosed</label>
+        <label class="radio-opt"><input type="radio" name="enclosed" /> Not enclosed</label>
+        <label class="radio-opt"><input type="radio" name="enclosed" /> N/A — no outdoor space</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Outdoor space features</div>
+      <div class="chip-row">
+        <label class="chip"><input type="checkbox" /> Play equipment</label>
+        <label class="chip"><input type="checkbox" /> Hard surface area</label>
+        <label class="chip"><input type="checkbox" /> Grass / soft surface</label>
+        <label class="chip"><input type="checkbox" /> Shelter / canopy</label>
+        <label class="chip"><input type="checkbox" /> Adequate lighting</label>
+        <label class="chip"><input type="checkbox" /> Suitable for winter use</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Notes on outdoor spaces</div>
+      <textarea placeholder="Size, condition, suitability for pupils aged 5–16, any hazards observed..."></textarea>
+    </div>
+  </div>
+
+  <!-- 6. Health, Safety & Safeguarding -->
+  <div class="section-card">
+    <div class="section-head"><div class="section-num">6</div><h2>Health, safety &amp; safeguarding</h2></div>
+
+    <div class="q">
+      <div class="q-label">Adequate pupil toilet facilities (separate male/female)? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="pupil-toilets" /> Yes — separate male &amp; female</label>
+        <label class="radio-opt"><input type="radio" name="pupil-toilets" /> Shared but sufficient</label>
+        <label class="radio-opt"><input type="radio" name="pupil-toilets" /> Insufficient for our numbers</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">First aid provision on site</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="first-aid" /> First aid kit available</label>
+        <label class="radio-opt"><input type="radio" name="first-aid" /> First aider on site during hire</label>
+        <label class="radio-opt"><input type="radio" name="first-aid" /> Neither — we must bring our own</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Secure reception / sign-in point for safeguarding? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="reception" /> Yes</label>
+        <label class="radio-opt"><input type="radio" name="reception" /> Could be arranged</label>
+        <label class="radio-opt"><input type="radio" name="reception" /> No</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Safeguarding &amp; safety checks</div>
+      <div class="check-group">
+        <label class="check-opt"><input type="checkbox" /> Venue has its own safeguarding policy</label>
+        <label class="check-opt"><input type="checkbox" /> Fire exits clearly marked</label>
+        <label class="check-opt"><input type="checkbox" /> Fire extinguishers visible and in date</label>
+        <label class="check-opt"><input type="checkbox" /> CCTV coverage on site</label>
+        <label class="check-opt"><input type="checkbox" /> No sharing with other organisations during our sessions</label>
+        <label class="check-opt"><input type="checkbox" /> Venue supports DBS-check requirements</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Health &amp; safety notes</div>
+      <textarea placeholder="Any hazards, concerns, or queries to follow up with the venue..."></textarea>
+    </div>
+  </div>
+
+  <!-- 7. Practical & Logistical -->
+  <div class="section-card">
+    <div class="section-head"><div class="section-num">7</div><h2>Practical &amp; logistical</h2></div>
+
+    <div class="q">
+      <div class="q-label">Venue available every weekend (Sat/Sun) September – July? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="availability" /> Yes — fully available</label>
+        <label class="radio-opt"><input type="radio" name="availability" /> Mostly — some blackout dates</label>
+        <label class="radio-opt"><input type="radio" name="availability" /> Limited — frequent conflicts</label>
+        <label class="radio-opt"><input type="radio" name="availability" /> Unknown — need to confirm</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Can we access from 8:30 am for set-up?</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="setup" /> Yes</label>
+        <label class="radio-opt"><input type="radio" name="setup" /> No — access is later</label>
+        <label class="radio-opt"><input type="radio" name="setup" /> To be confirmed</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Approximate weekly hire cost</div>
+      <div class="num-row"><span>£</span><input type="number" min="0" placeholder="0" /><span>per session</span></div>
+    </div>
+    <div class="q">
+      <div class="q-label">Storage available for resources between sessions?</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="storage" /> Yes — dedicated lockable storage</label>
+        <label class="radio-opt"><input type="radio" name="storage" /> Limited / shared storage</label>
+        <label class="radio-opt"><input type="radio" name="storage" /> No storage available</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Is the venue on a public transport route?</div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="transport" /> Yes — bus/train within 10 min walk</label>
+        <label class="radio-opt"><input type="radio" name="transport" /> Partial — limited options</label>
+        <label class="radio-opt"><input type="radio" name="transport" /> No — car only</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Is the venue within our target catchment area? <span class="req">*</span></div>
+      <div class="radio-group">
+        <label class="radio-opt"><input type="radio" name="catchment" /> Yes — central to target area</label>
+        <label class="radio-opt"><input type="radio" name="catchment" /> On the edge — borderline</label>
+        <label class="radio-opt"><input type="radio" name="catchment" /> No — too far from target families</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Overall Assessment -->
+  <div class="section-card">
+    <div class="section-head"><div class="section-num">8</div><h2>Overall assessment</h2></div>
+
+    <div class="q">
+      <div class="q-label">Overall suitability rating <span class="req">*</span></div>
+      <div class="rating-wrap">
+        <div class="star-row" id="r-overall"></div>
+        <div class="rating-labels"><span>Not suitable</span><span>Excellent fit</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Key strengths of this venue</div>
+      <textarea placeholder="What makes this venue well-suited for Safar Academy?"></textarea>
+    </div>
+    <div class="q">
+      <div class="q-label">Key concerns or deal-breakers</div>
+      <textarea placeholder="Any issues that could prevent us from using this venue?"></textarea>
+    </div>
+    <div class="q">
+      <div class="q-label">Recommended next steps</div>
+      <div class="check-group">
+        <label class="check-opt"><input type="checkbox" /> Request follow-up meeting with venue management</label>
+        <label class="check-opt"><input type="checkbox" /> Obtain formal hire quote</label>
+        <label class="check-opt"><input type="checkbox" /> Review venue's safeguarding / H&amp;S policy</label>
+        <label class="check-opt"><input type="checkbox" /> Arrange second visit with senior staff</label>
+        <label class="check-opt"><input type="checkbox" /> Decline — not suitable</label>
+      </div>
+    </div>
+    <div class="q">
+      <div class="q-label">Any other observations</div>
+      <textarea placeholder="Anything else the team should know about this site..."></textarea>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-primary" onclick="handlePrint()">🖨 Print / save as PDF</button>
+    <button class="btn-secondary" onclick="handleReset()">Clear form</button>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  function makeRating(id) {
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+    for (let i = 1; i <= 5; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'star-btn';
+      btn.textContent = i;
+      btn.type = 'button';
+      btn.addEventListener('click', () => {
+        wrap.querySelectorAll('.star-btn').forEach(b => b.classList.remove('on'));
+        for (let j = 0; j < i; j++) wrap.children[j].classList.add('on');
+      });
+      wrap.appendChild(btn);
+    }
+  }
+  makeRating('r-classroom');
+  makeRating('r-overall');
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  function handlePrint() {
+    window.print();
+  }
+
+  function handleReset() {
+    if (confirm('Clear all answers and start fresh?')) {
+      document.querySelectorAll('input[type=text], input[type=number], input[type=date], textarea').forEach(el => el.value = '');
+      document.querySelectorAll('input[type=radio], input[type=checkbox]').forEach(el => el.checked = false);
+      document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('on'));
+      updateProgress();
+      showToast('Form cleared');
+    }
+  }
+
+  // Progress tracking
+  function updateProgress() {
+    const sections = document.querySelectorAll('.section-card');
+    let filled = 0;
+    sections.forEach(sec => {
+      const hasRadio = sec.querySelector('input[type=radio]:checked');
+      const hasText = [...sec.querySelectorAll('input[type=text], textarea')].some(el => el.value.trim());
+      const hasDate = [...sec.querySelectorAll('input[type=date]')].some(el => el.value);
+      if (hasRadio || hasText || hasDate) filled++;
+    });
+    const pct = Math.round((filled / sections.length) * 100);
+    document.getElementById('prog-bar').style.width = pct + '%';
+    document.getElementById('prog-text').textContent = filled + ' of ' + sections.length + ' sections started';
+  }
+
+  document.addEventListener('change', updateProgress);
+  document.addEventListener('input', updateProgress);
+</script>
+</body>
+</html>
